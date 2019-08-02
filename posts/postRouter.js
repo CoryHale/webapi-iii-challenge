@@ -3,10 +3,10 @@ const db = require('./postDb');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res) => {       // Working
     try {
         const posts = await 
-        db.get();
+        db.get()
             if (posts) {
                 res.status(200).json({ success: true, posts });
             } else {
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', validatePostId, async (req, res) => {
+router.get('/:id', validatePostId, async (req, res) => {        // Working
     const {id} = req.params;
 
     try {
@@ -33,7 +33,7 @@ router.get('/:id', validatePostId, async (req, res) => {
     }
 });
 
-router.delete('/:id', validatePostId, async (req, res) => {
+router.delete('/:id', validatePostId, async (req, res) => {     // Working
     const {id} = req.params;
 
     try {
@@ -70,15 +70,15 @@ router.put('/:id', validatePostId, async (req, res) => {
 
 async function validatePostId(req, res, next) {
     try {
-        const { id } = req.params;
+        const {id} = req.params;
         const post = await 
         
-        db.findById(id);
+        db.getById(id);
             if (post) {
                 req.post = post;
                 next();
             } else {
-                res.status(404).json({ message: 'Id not found' });
+                res.status(404).json({ message: 'ID not found' });
             }
     } catch (error) {
         res.status(500).json(error);
